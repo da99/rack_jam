@@ -15,6 +15,6 @@ describe(":BOTTOM", function ()
     r:RUN()
 
     assert.same({4,3,2,1}, o)
-  end);
-end);
+  end)
+end)
 

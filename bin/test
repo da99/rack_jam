@@ -11,6 +11,7 @@ set -u -e -o pipefail
 
 for file in tests/*.lua
 do
+  echo -e -n "FILE: \e[1;38m$file\e[0m "
   busted $file
 done
 

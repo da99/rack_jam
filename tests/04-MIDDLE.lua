@@ -45,5 +45,5 @@ describe(":MIDDLE", function ()
     r:RUN()
 
     assert.same("done", r.resp.body)
-  end);
+  end)
 end)
