@@ -4,7 +4,7 @@ local _    = require("underscore")
 
 
 describe(":BEFORE", function ()
-  it("adds function to bottom of before table", function ()
+  it("adds function to bottom of BEFORE table", function ()
     local r = Rack.new()
     local f = function () end
     r:BEFORE(f);
