@@ -1,5 +1,5 @@
 
-local Rack = require("lib/rack")
+local Rack = require("lib/rack_jam")
 local _    = require("underscore")
 
 
