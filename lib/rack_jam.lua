@@ -92,19 +92,19 @@ function Rack.meta:RUN()
     end
   end
 
-  _.detect(self._FUNCS.BEFORE_ALL, func);
+  _.detect(self._FUNCS.TOP, func);
 
   if not route_stop then
     _.detect(self._FUNCS.BEFORE, func);
   end -- if
 
   if not route_stop then
-    _.detect(self._FUNCS.ROUTE, func);
+    _.detect(self._FUNCS.MIDDLE, func);
   end -- if
 
   _.detect(self._FUNCS.AFTER, func);
 
-  _.detect(self._FUNCS.AFTER_ALL, func);
+  _.detect(self._FUNCS.BOTTOM, func);
 
 end -- func
 
