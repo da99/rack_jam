@@ -4,16 +4,17 @@ local _    = require("underscore")
 
 
 describe(":AFTER", function ()
-  it("adds function to top of AFTER table", function ()
+  it("runs functions after BEFORE, MIDDLE", function ()
     local r = Rack.new()
-    local f1 = function () end
-    local f2 = function () end
+    local o = {}
 
-    r:AFTER(f1)
-    r:AFTER(f2)
+    r:MIDDLE(function () _.push(o, 2) end)
+    r:BEFORE(function () _.push(o, 1) end)
+    r:AFTER( function () _.push(o, 4) end)
+    r:AFTER( function () _.push(o, 3) end)
+    r:RUN()
 
-    assert.same(f1, r._FUNCS.AFTER[2]);
-    assert.same(f2, r._FUNCS.AFTER[1]);
+    assert.same({1,2,3,4}, o)
   end);
 end);
 

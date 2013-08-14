@@ -4,16 +4,17 @@ local _    = require("underscore")
 
 
 describe(":BOTTOM", function ()
-  it("adds function to bottom of AFTER table", function ()
+  it("runs functions after all other AFTER functions", function ()
     local r = Rack.new()
-    local f1 = function () end
-    local f2 = function () end
+    local o = {}
 
-    r:BOTTOM(f1)
-    r:BOTTOM(f2)
+    r:AFTER(function () _.push(o, 3) end)
+    r:AFTER(function () _.push(o, 4) end)
+    r:BOTTOM(function () _.push(o, 2) end)
+    r:BOTTOM(function () _.push(o, 1) end)
+    r:RUN()
 
-    assert.same(f1, r._FUNCS.AFTER[1]);
-    assert.same(f2, r._FUNCS.AFTER[2]);
+    assert.same({4,3,2,1}, o)
   end);
 end);
 

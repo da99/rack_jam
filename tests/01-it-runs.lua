@@ -10,12 +10,15 @@ describe(":RUN", function ()
     r:BEFORE(function ()
       _.push(o, 1);
     end)
-    r:BEFORE(function ()
+    r:MIDDLE(function ()
       _.push(o, 2);
+    end)
+    r:AFTER(function ()
+      _.push(o, 3);
     end)
     r:RUN();
 
-    assert.same({1,2}, o);
+    assert.same({1,2,3}, o);
   end);
 end);
 

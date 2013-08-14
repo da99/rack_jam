@@ -15,7 +15,7 @@ while true; do
   change=$(inotifywait tests)
   echo $change
   echo ""
-  if [[ ! -z "$cmd" ]]
+  if [[ ( ! -z "$cmd" ) && ( ! "$change" =~ " OPEN ") && ( "$change" =~ "CLOSE_WRITE" || "$change" =~ " CHANGE " || "$change" =~ ".lua" ) ]]
   then
     $cmd
   fi
