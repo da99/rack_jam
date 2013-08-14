@@ -22,14 +22,18 @@ local Rack = {
 
 function Rack.new()
   local r = {}
-  setmetatable(r, {__index = Rack.meta});
+  setmetatable(r, {__index = Rack.meta})
+
+  r.req  = {}
+  r.resp = {}
+
   r._FUNCS = {
     TOP    = {},
     BEFORE = {},
     MIDDLE = {},
     AFTER  = {},
     BOTTOM = {}
-  };
+  }
 
   return r
 end -- func
@@ -80,31 +84,29 @@ end -- func
 
 function Rack.meta:RUN()
 
-  local req  = {}
-  local resp = {}
-  local route_stop = false;
+  local route_stop = false
   local func = function (func)
     local result = func(req, resp)
     if result then
-      resp.content = resp;
+      self.resp.body = result
       route_stop = true
       return true
     end
   end
 
-  _.detect(self._FUNCS.TOP, func);
+  _.detect(self._FUNCS.TOP, func)
 
   if not route_stop then
-    _.detect(self._FUNCS.BEFORE, func);
+    _.detect(self._FUNCS.BEFORE, func)
   end -- if
 
   if not route_stop then
-    _.detect(self._FUNCS.MIDDLE, func);
+    _.detect(self._FUNCS.MIDDLE, func)
   end -- if
 
-  _.detect(self._FUNCS.AFTER, func);
+  _.detect(self._FUNCS.AFTER, func)
 
-  _.detect(self._FUNCS.BOTTOM, func);
+  _.detect(self._FUNCS.BOTTOM, func)
 
 end -- func
 
