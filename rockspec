@@ -2,7 +2,7 @@
 package = "rack_jam"
 version = "0.1-0"
 source = {
-  url = "http://github.com/da99/rack_jam.git",
+  url = "http://github.com/jam-lua/rack_jam.git",
   tag = "0.1-0",
   dir = "."
 }
