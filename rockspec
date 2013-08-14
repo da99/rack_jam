@@ -1,8 +1,8 @@
 
-package = "rack-lua"
+package = "rack_jam"
 version = "0.1-0"
 source = {
-  url = "http://github.com/da99/rack-lua.git",
+  url = "http://github.com/da99/rack_jam.git",
   tag = "0.1-0",
   dir = "."
 }
@@ -11,7 +11,7 @@ description = {
   detailed = [[
     Don't use this. You won't like it.
   ]],
-  homepage = "http://github.com/da99/rack-lua",
+  homepage = "http://github.com/jam-lua/rack_jam",
   license = "MIT/X11",
   maintainer = "da99@da99"
 }
@@ -23,6 +23,6 @@ dependencies = {
 build = {
   type = "builtin",
   modules = {
-    rack = "lib/rack.lua",
+    rack_jam = "lib/rack_jam.lua",
   }
 }
