@@ -4,14 +4,16 @@ local _    = require("underscore")
 
 
 describe(":VERY_TOP", function ()
-  it("adds function to TOP of TOP table", function ()
+  it("runs functions before all others", function ()
     local r = Rack.new()
-    local f1 = function () end
-    local f2 = function () end
-    r:VERY_TOP(f1);
-    r:VERY_TOP(f2);
+    local o = {}
+    r:BEFORE(function ()  _.push(o, 3) end)
+    r:BEFORE(function ()  _.push(o, 4) end)
+    r:VERY_TOP(function ()  _.push(o, 2) end)
+    r:VERY_TOP(function ()  _.push(o, 1) end)
+    r:RUN()
 
-    assert.same(f1, r._FUNCS.TOP[2]);
-    assert.same(f2, r._FUNCS.TOP[1]);
+    assert.same({1,2,3,4}, o)
   end);
 end);
+

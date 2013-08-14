@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# -*- bash -*-
+#
+#!/usr/bin/env node
+# -*- js   -*-
+#
+#!/usr/bin/env lua
+#
+#
+cmd="$@"
+# set -u -e -o pipefail
+
+
+while true; do
+  change=$(inotifywait tests)
+  echo $change
+  echo ""
+  if [[ ! -z "$cmd" ]]
+  then
+    $cmd
+  fi
+done
+
+
+
