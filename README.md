@@ -23,7 +23,7 @@ rj:BEFORE(function (req, resp)
 end)
 
 rj:MIDDLE(function (req, resp)
-    print("  middle  ")
+    print("  middle")
 end)
 
 rj:AFTER(function (req, resp)
@@ -40,7 +40,37 @@ rj:RUN()
 -- output --
 -- BEFORE #1
 -- BEFORE #2
---   middle  
+--   middle
 -- AFTER #2
 -- AFTER #1
 ```
+
+Usage: HTTP Methods
+=====================
+
+```lua
+rj:GET('/hello-rusty', function (req, resp)
+  return "<html><body>Hello</body></html>"
+end)
+
+--- That is the same as
+
+local mj   = Mid_Jam.new()
+
+local func = mj:GET('/hello', function (req, resp)
+  return "<html><body>Hello</body></html>"
+end)
+
+rj:MIDDLE(func)
+
+```
+
+Note:
+=====
+
+(Mid\_Jam)[https://github.com/jam-lua/rack\_jam.git] is a tool
+to generate functions that can be used in Rack\_Jam. The
+check the `REQUEST_METHOD`, `PATH_INFO`, etc.
+
+You don't have to know about it since `Rack\_Jam` uses
+it in the background.
