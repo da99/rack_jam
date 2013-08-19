@@ -1,9 +1,9 @@
 
 package = "rack_jam"
-version = "0.1-0"
+version = "0.1-1"
 source = {
   url = "http://github.com/jam-lua/rack_jam.git",
-  tag = "0.1-0",
+  tag = "0.1-1",
   dir = "."
 }
 description = {
