@@ -7,6 +7,7 @@ local error        = error
 local unpack       = unpack
 
 local _            = require("underscore")
+local Mid_Jam      = require("mid_jam")
 
 
 
@@ -24,15 +25,14 @@ function Rack.new()
   local r = {}
   setmetatable(r, {__index = Rack.meta})
 
-  r.req  = {}
-  r.resp = {}
+  r.mid_jam = Mid_Jam.new()
 
-  r._FUNCS = {
-    TOP    = {},
-    BEFORE = {},
-    MIDDLE = {},
-    AFTER  = {},
-    BOTTOM = {}
+  r._FUNCS  = {
+    TOP     = {},
+    BEFORE  = {},
+    MIDDLE  = {},
+    AFTER   = {},
+    BOTTOM  = {}
   }
 
   return r
@@ -82,11 +82,11 @@ end -- func
 
 -- -----------------------------------------
 
-function Rack.meta:RUN()
+function Rack.meta:RUN(req, resp, env)
 
   local route_stop = false
   local func = function (func)
-    local result = func(req, resp)
+    local result = func(req, resp, env)
     if result then
       self.resp.body = result
       route_stop = true
@@ -109,6 +109,34 @@ function Rack.meta:RUN()
   _.detect(self._FUNCS.BOTTOM, func)
 
 end -- func
+
+-- -----------------------------------------
+-- HTTP Methods
+-- -----------------------------------------
+
+Rack.New_Method = function (name)
+
+  if not _.contains(Mid_Jam.HTTP_Methods, name) then
+    Mid_Jam.New_Method(name)
+  end
+
+  Rack.meta[name] = function (self, ...)
+    local me = self
+    local f  = me.mid_jam[name](me.mid_jam, ...)
+    me:MIDDLE(f)
+    return f
+  end
+
+  return Rack
+
+end -- func
+
+-- HEAD, GET, etc. -------------------------
+_.each(Mid_Jam.HTTP_Methods, function (m)
+  Rack.New_Method(m)
+end)
+
+-- -----------------------------------------
 
 -- -----------------------------------------
 -- Done

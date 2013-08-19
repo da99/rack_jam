@@ -18,7 +18,8 @@ description = {
 dependencies = {
   "lua >= 5.1",
   "penlight >= 0.1",
-  "underscore >= 0.1"
+  "underscore >= 0.1",
+  "mid_jam >= 0.1"
 }
 build = {
   type = "builtin",
